@@ -261,11 +261,17 @@ extension Defaults.iCloudSynchronizer {
 		#if os(iOS) || os(tvOS)
 		NotificationCenter.default
 			.publisher(for: UIScene.willEnterForegroundNotification)
+			.sink { [weak self] notification in
+				guard let self else {
+					return
+				}
+
+				self.willEnterForeground(notification: notification)
+			}
+			.store(in: cancellables)
 		#elseif os(watchOS)
 		NotificationCenter.default
 			.publisher(for: WKExtension.applicationWillEnterForegroundNotification)
-		#endif
-		#if os(iOS) || os(tvOS) || os(watchOS)
 			.sink { [weak self] notification in
 				guard let self else {
 					return
