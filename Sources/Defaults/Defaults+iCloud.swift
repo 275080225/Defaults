@@ -268,7 +268,7 @@ extension Defaults.iCloudSynchronizer {
 
 				self.willEnterForeground(notification: notification)
 			}
-			.store(in: cancellables)
+			.store(in: &cancellables)
 		#elseif os(watchOS)
 		NotificationCenter.default
 			.publisher(for: WKExtension.applicationWillEnterForegroundNotification)
@@ -279,7 +279,7 @@ extension Defaults.iCloudSynchronizer {
 
 				self.willEnterForeground(notification: notification)
 			}
-			.store(in: cancellables)
+			.store(in: &cancellables)
 		#endif
 	}
 
